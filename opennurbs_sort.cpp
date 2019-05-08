@@ -55,6 +55,7 @@ ON__QSORT_FASTER_THAN_HSORT.
 
 void 
 ON_qsort( void *base, size_t nel, size_t width, int (*compar)(void*,const void *, const void *),void* context)
+
 {
 #if defined(ON__HAVE_RELIABLE_SYSTEM_CONTEXT_QSORT)
   // The call here must be a thread safe system qsort
@@ -63,12 +64,12 @@ ON_qsort( void *base, size_t nel, size_t width, int (*compar)(void*,const void *
   // find pivots, that calculation must be thread safe.
 #if defined(ON_COMPILER_MSC)
   qsort_s(base,nel,width,compar,context);
-#elif defined(ON_RUNTIME_ANDROID)
+#elif defined(ON_RUNTIME_ANDROID) || defined(ON_RUNTIME_LINUX)
   ON_hsort(base, nel, width, compar, context);
 #elif defined(ON_COMPILER_CLANG)
   qsort_r(base,nel,width,context,compar);
 #elif defined(_GNU_SOURCE)
-  qsort_r(base,nel,width,context,compar);
+  qsort_r(base,nel,width,compar,context);
 #endif
 #else
   ON_hsort(base, nel, width, compar, context);

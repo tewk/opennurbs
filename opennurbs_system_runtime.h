@@ -55,6 +55,8 @@
 #define ON_RUNTIME_ANDROID
 #endif
 
+#elif defined( __linux__ )
+#define ON_RUNTIME_LINUX
 #endif
 /*
 //
@@ -119,6 +121,18 @@
 #else
 #define ON_LITTLE_ENDIAN
 #endif
+
+#elif defined(ON_RUNTIME_LINUX) 
+
+#if !defined(ON_LITTLE_ENDIAN)
+#if (defined(_M_X64) || defined(_M_IX86) || defined (__i386__) || defined( __x86_64__ ))
+#define ON_LITTLE_ENDIAN
+#endif
+#endif
+#if !defined(ON_SIZEOF_WCHAR_T)
+#define ON_SIZEOF_WCHAR_T 4
+#endif
+#define ON_COMPILER_GCC 1
 
 #elif defined(ON_RUNTIME_WIN)
 

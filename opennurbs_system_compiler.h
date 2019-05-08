@@ -389,6 +389,8 @@
 
 #endif
 
+#define ON_CLANG_CONSTRUCTOR_BUG
+
 
 #elif defined(__BORLANDC__)
 /*

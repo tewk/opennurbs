@@ -520,9 +520,17 @@ typedef ON__UINT32 wchar_t;
 #include <dirent.h>
 #pragma ON_PRAGMA_WARNING_AFTER_DIRTY_INCLUDE
 
+#pragma ON_PRAGMA_WARNING_BEFORE_DIRTY_INCLUDE
+#if defined(ON_RUNTIME_ANDROID)
+#include "android_uuid/uuid.h"
+#else
+#include <uuid/uuid.h>
+#endif
+#pragma ON_PRAGMA_WARNING_AFTER_DIRTY_INCLUDE
+
 #endif
 
-#if defined(ON_COMPILER_CLANG)
+#if defined(ON_COMPILER_CLANG) 
 #pragma ON_PRAGMA_WARNING_BEFORE_DIRTY_INCLUDE
 #include <sys/types.h>
 #pragma ON_PRAGMA_WARNING_AFTER_DIRTY_INCLUDE
